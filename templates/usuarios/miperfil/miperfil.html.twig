@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mi perfil
+{% endblock %}
+{% block carousel %}{% endblock %}
+{% block wrapper %}
+	<div class="container mt-2">
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Mis datos</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="ticket-tab" data-bs-toggle="tab" data-bs-target="#ticket-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Factura</button>
+					</li>			
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+						<div class="row">
+							<div class="col-4">
+								<img class="img-thumbnail" src="{{ asset('images/iconos/login.png')}}" width="200px">
+							</div>
+							<div class="col-8">
+								<div class="form-group row">
+									
+									{{form(formDatos)}}
+									
+								</div>
+								
+								
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+				
+						
+						 	<form method="POST" action="{{ path('app_pass_modificar')}}">
+								<div class="col-auto">
+									<label for="inputPassword6" class="col-form-label">Contraseña</label>
+								</div>
+								<div class="col-auto">
+									<input type="password" name="pass" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+								</div>
+
+								<div class="col-auto">
+									<span id="passwordHelpInline" class="form-text">
+										Debe tener entre 8 y 20 caracteres.
+									</span>
+								</div>
+								<div class="col-auto">
+									<label for="inputPassword6"  class="col-form-label">Repetir contraseña</label>
+								</div>
+								<div class="col-auto">
+									<input type="password" name="pass2" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+								</div>
+
+								<div class="col-auto">
+									<span id="passwordHelpInline" class="form-text">
+										Debe tener entre 8 y 20 caracteres.
+									</span>
+								</div>
+								<input type="submit" class="btn btn-primary" value="Cambiar">
+							</form>
+						</div>
+					</div>
+					<hr>
+					{# Falta factura #}
+					<div class="tab-pane fade" id="ticket-tab-pane" role="tabpanel" aria-labelledby="ticket-tab" tabindex="0">
+						<div class="row">
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Ticket</th>
+											<th>Fecha</th>
+											<th>DNI</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										{% if tickets is defined %}
+											{% for index, ticket in tickets %}
+											<tr>
+												<td>{{ticket.id}}</td>
+												<td>{{ticket.fecha|date}}</td>
+												<td>{{ticket.usuario.dni}}</td>
+
+												<td>
+														{# Le envio el id de la ticket al controlador de ticket #}
+														<a href="{{path('app_usuario_mis-facturas', {idTicket: ticket.id})}}" class="btn btn-primary">Ver</a>
+												</td>
+											</tr>
+
+											{% endfor %}
+										{% endif %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+
+{% endblock %}

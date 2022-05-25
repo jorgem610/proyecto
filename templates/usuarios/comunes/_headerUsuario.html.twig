@@ -1,0 +1,91 @@
+<div class="container-fluid bg-dark">
+	<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-0 ">
+		{# LOGO #}
+		<a href="{{ path ('app_inicio')}}"><img src="{{ asset('images/logo2.png')}}" class="img-fluid" width="150px"></a>
+		{# BUSQUEDAD #}
+ 		<div class="col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        {% if formSearch is defined %}
+			{{ form_start(formSearch)}}
+			<div class="row w-100 justify-content-center">
+				{{form_row(formSearch.palabras)}}
+				{{form_row(formSearch.Buscar)}}
+			</div>
+			{{ form_end(formSearch)}}
+		{% endif %}
+      	</div>
+		{# BOTONES #}
+		<div class="col-md-4 text-end">
+			<button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#miPerfil">{{ app.user.email }}</button>
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Cesta</button>
+			
+			{# Modal carrito#}
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Cesta de compra</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div>
+								<div class="p-2">
+									<ul class="list-group mb-3">
+									{% if app.session.get('cestaConDatos') is defined %}
+										{% for item in app.session.get('cestaConDatos') %}
+											<li class="list-group-item d-flex justify-content-between lh-condensed">
+												<div class="row col-12">
+													<div class="col-6 p-0" style="text-align:left; color: #000000">
+														<h6 class="my-0">Cantidad:{{ item.cantidad}}:{{item.producto.nombre}}</h6>
+													</div>
+													<div class="col-6 p-0 d-flex justify-content-end" style="text-align:left, color: #000000;">
+														<span class="text-muted" style="text-align: left; color:#00000;">{{item.producto.precio * item.cantidad}}
+														</span>
+													</div>
+												</div>
+											</li>
+										{% endfor %}
+											<li class="list-group-item d-flex justify-content-between">
+												<span style="texta-align: left; color:#000000;">Total (EUR)</span>
+													<strong style="text-align: left; color:#00000;">{{app.session.get('total')}}€</strong>
+											</li>
+											
+										{% endif %}
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<a href="{{ path('carrito_pagar')}}" type="button" class="btn btn-primary">Pagar</a>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		{# OFFCANVAS #}
+			<div class="offcanvas offcanvas-end" id="miPerfil">
+				<div class="offcanvas-header">
+					<div class="offcanvas-title">
+						<h4 class="offcanvas-title" id="offcanvasExampleLabel">Mi Perfil</h4>
+					</div>
+				</div>
+				<div class="offcanvas-body">
+					<h5>Mi cuenta</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_usuario_mis-datos') }}">Mis datos</a>
+						</li>
+						{# <li class="nav-item"><a class="nav-link" href="">Mensajes</a></li> #}
+					</ul>
+					<h5>Mis Pedidos</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_usuario_mis-datos') }}">Facturas</a>
+						</li>
+					</ul class="list-unstyled">
+						<a class="btn btn-primary me-2" href="{{ path('app_logout') }}">Salir</a>
+				</div>
+			</div>
+	</header>
+</div>

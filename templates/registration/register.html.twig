@@ -1,0 +1,49 @@
+{% extends 'baseLogin.html.twig' %}
+{% block title %}Registro
+{% endblock %}
+{% block body %}
+	<div class="row mb-5">
+		<h2 class="col-12 text-center">Crear cuenta</h2>
+	</div>
+	<div class="row"> 
+		{{ form_start(registrationForm, {'attr': {'class': 'col-12 col-md-8 offset-md-2'}}) }}
+
+		{# {% for flash_error in app.flashes('verify_email_error') %}
+			<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+		{% endfor %} #}
+		
+
+		
+		<div class="my-custom-class-for-errors">
+			{{ form_errors(registrationForm) }}
+		</div>
+		
+			{{ form_row(registrationForm.nombre) }}
+	
+			{{ form_row(registrationForm.apellidos) }}
+			{{ form_row(registrationForm.direccion) }}
+			{{ form_row(registrationForm.dni) }}
+			{{ form_row(registrationForm.email) }}
+			{{ form_row(registrationForm.plainPassword.first) }}
+			{{ form_row(registrationForm.plainPassword.second) }}
+
+			<div class="form-group text-center pt-4">
+				<button type="submit" class="btn btn-lg btn-primary">Registro</button>
+			
+				
+			</div>
+		{{ form_end(registrationForm) }}
+
+		{# {{ form_row(registrationForm.agreeTerms) }} #}
+		<div class="row mt-5">
+			<div class="col-12 links text-center">
+			
+
+			<a href="{{ path('app_login')}} ">Volver</a>
+			</div>
+		</div>
+	</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Gestión de productos
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="table-responsive-2">
+		<h1>Gestión de productos</h1>
+		<a href="{{path('admin_producto_agregar')}}" class="btn shadow-1 rounded-1 blue btn-press "  >Agregar un producto</a>
+		<table class="table" width="100%">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nombre</th>
+					<th>Contenido</th>
+					<th>Categoria</th>
+				
+					<th>Precio</th>
+					<th>Fecha</th>
+					<th>Stock</th>
+					<th>Activo</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for producto in productos %}
+					<tr>
+						<td>{{producto.id}}</td>
+						<td>{{producto.nombre}}</td>
+						<td>{{producto.contenido|raw}}</td>
+						<td>{{producto.categoria}}</td>
+						<td>{{producto.precio}}</td>
+						<td>{{producto.fechaEntrada|date('Y-m-d')}}</td>
+						<td>{{producto.stockMinimo}}</td>
+						<td>
+							<label class="form-switch mt-2">
+								<input type="checkbox" {{ (producto.activo ) ? 'checked': '' }} data-id="{{producto.id}}"/>
+								<span class="form-slider"></span>
+							</label>
+						</td>
+						<td>
+							{# Le envio el id de la producto al controlador de producto  #}
+							<a href="{{path('admin_producto_modificar', {id: producto.id})}}" class="btn shadow-1 rounded-1 blue modal-trigger" >Modificar</a>
+						
+						</td>
+					</tr>
+				{% endfor %}
+		
+			</tbody>
+		</table>
+		<div class="text-center">
+			{% include 'admin/comunes/paginadorAdmin.html.twig' with {'path2list': 'admin_producto_inicio'} %}
+		</div>
+	
+	</div>
+	
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		window.onload = () => { 
+			
+			// Cojo si es true o false el boton de activo
+			let activo = document.querySelectorAll("[type=checkbox]")
+			//Le añado todos los botones el evento
+			for (let boton of activo) {
+				boton.addEventListener("click", function () { // Me conecto mediante ajax
+				let xmlhttp = new XMLHttpRequest;
+				// Le envio vio a la ruta con el id del producto para que en el controlador lo ponga activado o desactivado
+				xmlhttp.open("get", `/admin/producto/activo/${
+				this.dataset.id
+				}`)
+				xmlhttp.send()
+				})
+			}
+
+			// Cojo si es true o false el boton de activo
+			let modal = document.querySelectorAll("#modal-example")
+			let modificar = document.querySelectorAll(".modal-trigger")
+			//le añado a todos los botones el evento
+			for (let boton of modificar) {
+				boton.addEventListener("click", function () { // Me conecto mediante ajax
+				let xmlhttp = new XMLHttpRequest;
+				// Le envio vio a la ruta con el id del producto para que en el controlador lo ponga activado o desactivado
+				xmlhttp.open("get", `/admin/producto/modificar/${
+				this.dataset.id
+				}`)
+				xmlhttp.send()
+				})
+			}
+
+			
+		/*	
+    	$('.modal-trigger').on('click', function(){
+    	var thisId = $(this).attr('data-id');
+    	$('#modal-example').load('modificar', { id : thisId });
+		});
+		*/
+
+			
+
+					
+		}
+
+	
+
+	</script>
+{% endblock %}

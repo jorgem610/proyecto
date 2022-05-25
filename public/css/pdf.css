@@ -1,0 +1,111 @@
+.mercadofactura-container {
+    margin-top: 50px;
+    margin: 20px auto;
+  }
+  
+  #mercadofactura-checkout {
+    z-index: 100001;
+    width: 700px;
+    height: 100%;
+    min-height: 100%;
+    background: 0 0 #ffffff;
+    border-radius: 8px;
+    border: 1px solid #dedede;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  
+  #mercadofactura-checkout>h1 {
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    background: #EEF2F4;
+    color: #5D6F78;
+    font-size: 24px;
+    font-weight: 300;
+    border-bottom: 1px solid #DEDEDE;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .mercadofactura-form {
+    padding: 1.4em;
+    margin: 0 25px 25px;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 0;
+  }
+  
+  .mercadofactura-form-izquierda {
+    padding-right: 5px;
+    flex: 0 0 100%;
+  }
+  
+  .mercadofactura-form-derecha {
+    flex: 0 0 100%;
+  }
+  
+  .mercadofactura-form label {
+    color: #46545C;
+    margin-bottom: 2px;
+    display:block;
+    font-size: 14px;
+  }
+  
+  
+  .mercadofactura-form p {
+    box-shadow: none!important;
+    margin: 0;
+    padding: 0;
+    border-radius: 0.25em;
+    border: 1px solid grey;
+    padding-left: 5px;
+  }
+  
+  .mercadofactura-form input:focus, select:focus {
+    border-color: #b0e5e3!important;
+    background-color: #EEF9F9!important;
+  }
+  
+  #mercadofactura-button {
+    outline: 0!important;
+    height: 42px;
+    font-size: 16px;
+    background-color: #51BFA5!important;
+    border: none;
+  }
+  
+  #mercadofactura-button:hover {
+    background-color: #6DCECB!important;
+  }
+  
+  #mercadofactura-button:active {
+    background-color: #4FBCB9!important;
+  }
+  
+  #mercadofactura-button:disabled {
+    background: rgba(84, 199, 195, .5)!important;
+    color: #FFF!important;
+  }
+  
+  .mercadofactura-input-container input {
+    padding-right: 25px;
+  }
+  
+  .mercadofactura-input-container>i, a[role="button"] {
+    color: #d3d3d3;
+    width: 25px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .mercadofactura-input-container>i:hover, a[role="button"]:hover {
+    color: #777;
+  }

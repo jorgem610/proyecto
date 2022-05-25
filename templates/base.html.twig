@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+			{% block title %}Inicio
+			{% endblock %}
+			- PC Informática
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{# Hoja de estilos #}
+
+		{% block stylesheets %}
+			{# Boostrap #}
+			<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css')}}"> 
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+			<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}">
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+		
+
+	</head>
+
+	<body>
+		{# header #}
+		{% include app.user ? 'usuarios/comunes/_headerUsuario.html.twig' : 'comunes/_header.html.twig' %}
+		{% if app.user and app.user.isVerified == false %}
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				<div class="alert-message">
+					<strong>Tienes que activar la cuenta</strong>
+				</div>
+			</div>
+		{% endif %}
+		{# Nav #}
+		{% block nav %}
+			{% include 'comunes/_nav.html.twig' %}
+		{% endblock %}
+		
+		{% block carousel %}
+					
+		{% endblock %}
+		{# Menu #}
+		<main class="container-fluid">
+		{% include 'comunes/_flash.html.twig' %}
+			{% block wrapper %}
+				
+				<section>
+					{% block body %}{% endblock %}
+				</section>
+				{% block side_bar %}{% endblock %}
+			{% endblock %}
+			
+		</main>
+
+
+		{# Footer #}
+		{% include 'comunes/_footer.html.twig' %}
+		{# Ficheros JS #}
+		{% block javascripts %}
+			<script type='text/javascript' src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+
+	</body>
+
+</html>

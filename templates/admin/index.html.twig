@@ -1,0 +1,22 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Gestión de productos
+{% endblock %}
+
+{% block contenido %}
+    <div class="grix xs4 continer">
+        <div class="col-xs4  text-center">
+            <h1>Bienvendio a la zona administrador</h1>
+        </div>
+        <div class="col-xs1">Nombre:</div>
+        <div class="col-xs3">{{ app.user.nombre}}</div>
+        <div class="col-xs1">Apellidos:</div>
+        <div class="col-xs3">{{ app.user.apellidos}}</div>
+        <div class="col-xs1">Correo:</div>
+        <div class="col-xs3">{{ app.user.email}}</div>
+    </div>
+
+{% endblock %}
+
+
+

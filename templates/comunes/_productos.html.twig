@@ -1,0 +1,25 @@
+
+	<div class="row text-center py-5">
+		{# <div class="col-md-12 col-sm-10 my-3 my-md-0 " > #}
+		<div class="col d-flex flex-wrap justify-content-between align-items-center" >
+			<div class="card shadow ">
+				{# Con la ~ concateno le he añadido un filtro para que  #}
+				<div>
+					<img class="img-fluid card-img-top" src="{{ asset('uploads/productos/'~ producto.categoria ~'/' ~ producto.imagenes[0].nombre) }}">
+				</div>
+				<div class="card-body">
+					<h6 class="card-title text-wrap">{{ producto.nombre}}</h6>
+					{# Para detalles {{producto.contenido|striptags|u.truncate(50, '...')}} --> para quitarle las etiquetas, para utilizar el truncate (sirve para cuando tenga 50 palabras te aparezca ... #}
+					<p class="card-text">{{ producto.precio}}€</p>
+					<a href="{{ path("producto_detalles", {id: producto.id})}}" class="btn btn-success my-3">Detalles</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+
+
+
+

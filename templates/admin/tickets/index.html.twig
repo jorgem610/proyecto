@@ -1,0 +1,47 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Gestión de tickets
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="table-responsive">
+		<h1>Gestión de tickets</h1>
+		{# <a href="{{ path("admin_ticket_agregar")}}" class="btn shadow-1 rounded-1 blue">Agregar un ticket</a> #}
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Ticket</th>
+					<th>Fecha</th>
+					<th>DNI</th>
+					<th></th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				{% if tickets is defined %}
+
+
+					{% for index, ticket in tickets %}
+						<tr>
+							<td>{{ticket.id}}</td>
+							<td>{{ticket.fecha|date}}</td>
+							<td>{{ticket.usuario.dni}}</td>
+
+							<td>
+
+								{# Le envio el id de la ticket al controlador de ticket #}
+								<a href="{{path('admin_ticket_factura', {idTicket: ticket.id})}}" class="btn primary press">Ver</a>
+							</td>
+						</tr>
+
+					{% endfor %}
+				{% endif %}
+
+			</tbody>
+		</table>
+	</div>
+
+
+{% endblock %}
+

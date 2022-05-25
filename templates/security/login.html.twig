@@ -1,0 +1,72 @@
+{% extends 'baseLogin.html.twig' %}
+
+{% block title %}Inicio de sesión
+{% endblock %}
+
+
+{% block body %}
+	<div class="row mb-5">
+		<h2 class="col-12 text-center">Iniciar sesión</h2>
+	</div>
+	<div class="row">  
+		<form method="post" class="col-12 col-md-8 offset-md-2">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+
+		{# {% if app.user %}
+			<div class="mb-3">
+				Has iniciado sesión como
+				{{ app.user.username }},
+				<a href="{{ path('app_logout') }}">Desconectar</a>
+			</div>
+		{% endif %} #}
+			<div class="form-group">
+				<input type="email" value="{{ last_username }}" class="form-control" name="email" id="inputEmail" placeholder="Correo electrónico" autocomplete="email" required >
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" name="password" id="inputPassword" autocomplete="current-password" placeholder="Contraseña" required>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			</div>
+			<div class="form-group text-center pt-4">
+				<input type="submit" class="btn btn-lg btn-primary" value="Ingresar">
+			</div>
+		</form>
+	</div>
+	<div class="row mt-5">
+		<div class="col-12 links text-center">
+			<div>
+				<a href="{{ path('app_forgot_password_request')}} ">Olvide mi contraseña</a>
+			</div>
+			<div>
+				<a href="{{ path('app_register')}} ">Crear cuenta</a>
+			</div>                        
+		</div>
+	</div>
+
+		
+		{# <h1 class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
+		<label for="inputEmail">Email</label>
+		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+		<label for="inputPassword">Contraseña</label>
+		<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password">
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"> #}
+
+		{#
+						        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+						        See https://symfony.com/doc/current/security/remember_me.html
+						
+						        <div class="checkbox mb-3">
+						            <label>
+						                <input type="checkbox" name="_remember_me"> Remember me
+						            </label>
+						        </div>
+						    #}
+
+		{# <button class="btn btn-lg btn-primary" type="submit">
+			Entrar
+		</button>
+	</form> #}
+{# <p><a href="{{ path('app_forgot_password_request')}} ">¿Contraseña olvidada?</a><p>
+<p><a href="{{ path('app_register')}} ">Registrar</a><p> #}
+{% endblock %}

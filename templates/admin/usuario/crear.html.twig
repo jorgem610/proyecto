@@ -1,0 +1,40 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Añadir un producto
+{% endblock %}
+
+{% block contenido %}
+
+
+	{# {% for flash_error in app.flashes('verify_email_error') %}
+				<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+			{% endfor %} #}
+	{% if id != null %}
+		<h1>Modificar cuenta</h1>
+	{% else %}
+		<h1>Crear cuenta</h1>		
+	{% endif %}
+	
+
+	
+
+	{{ form_start(form) }}
+
+	<fieldset>
+		<legend>Mis datos</legend>
+		{{ form_row(form.nombre) }}
+		{{ form_row(form.apellidos) }}
+		{{ form_row(form.direccion) }}
+		{{ form_row(form.dni) }}
+		{{ form_row(form.email) }}
+		{{ form_row(form.roles) }}
+		{{ form_row(form.plainPassword.first) }}
+		{{ form_row(form.plainPassword.second) }}
+
+	</fieldset>
+
+
+	{{ form_end(form) }}
+
+
+{% endblock %}

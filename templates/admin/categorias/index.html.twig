@@ -1,0 +1,34 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Gestión de categorias
+{% endblock %}
+
+{% block contenido %}
+	<div class="table-responsive">
+		<h1>Gestión de categorías</h1>
+		<a href="{{ path("admin_categoria_agregar")}}" class="btn shadow-1 rounded-1 blue">Agregar una categoría</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nombre</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for categoria in categorias %}
+					<tr>
+						<td>{{categoria.id}}</td>
+						<td>{{categoria.nombre}}</td>
+						<td>
+						{# Le envio el id de la categoria al controlador de categoria #}
+							<a href="{{ path("admin_categoria_modificar", {id: categoria.id})}}" class="btn shadow-1 rounded-1 blue">Modificar</a>
+							<a href="{{ path("admin_categoria_eliminar", {id: categoria.id})}}" class="btn shadow-1 rounded-1 red">Eliminar</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

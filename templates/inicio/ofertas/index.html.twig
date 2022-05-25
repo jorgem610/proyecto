@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ordenadores
+{% endblock %}
+{% block carousel %}{% endblock %}
+{% block body %}
+	<div class="container-fluid mt-2">
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+			{% for producto in ofertas %}
+                {% include "comunes/_productos.html.twig" %}
+            {% endfor %}
+		</div>
+	</div>
+{% endblock %}

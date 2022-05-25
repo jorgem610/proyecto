@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pasarela!
+{% endblock %}
+{% block carousel %}{% endblock %}
+{% block wrapper %}
+	<div class="container">
+		<div class="row">
+			<div class="col-6">
+				<h4>Detalles de pago</h4>
+                 <div id="paypal-button-container"></div>
+			</div>
+			<div class="col-6">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									Producto
+								</th>
+								<th>
+									Precio
+								</th>
+								<th>
+									Cantidad
+								</th>
+								<th>
+									Importe
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								{% for item in app.session.get('cestaConDatos') %}
+									<tr>
+										<td>{{ item.producto.nombre}}</td>
+										<td>{{ item.producto.precio|format_currency('EUR', {rounding_mode: 'floor'})}}</td>
+										<td>{{ item.cantidad}}</td>
+										<td>{{ (item.producto.precio * item.cantidad)|format_currency('EUR', {rounding_mode: 'floor'})}}</td>
+
+									</tr>
+								{% endfor %}
+							</tr>
+						</tbody>
+						<tfoot>
+							<td colspan="3">Total:
+							</td>
+							<td>{{ app.session.get('total')|format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
+						</tfoot>
+
+					</table>
+				</div>
+			</div>
+           
+		</div>
+        
+	</div>
+	
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script src="https://www.paypal.com/sdk/js?client-id=AWOQPj4g6XE_6FXddowbYQe18qX_Nn7XnjZOZ1SHVhuoIvl77kzsHJVhKrqJPkxajSZmoM_rDKk8n26U&currency=EUR"></script>
+	<script>
+		// Estilo del boton de paypal
+        paypal.Buttons({
+            style: {
+                color: 'blue',
+                shape: 'pill',
+                label: 'pay'
+            },
+            // Crear la orden
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: 100
+                        }
+                    }]
+                });
+            },
+            // Se aprobo el pago
+            onApprove: function (data, actions) {
+                actions.order.capture().then(function (detalles) {
+				
+                    window.location.href ="/pasarela/completado";
+                 });
+            },
+// Funcion cuando el usuario cancele el pago
+            onCancel: function (data) {
+                alert("Pago cancelado");
+            }
+
+        }).render('#paypal-button-container');
+	</script>
+
+{% endblock %}

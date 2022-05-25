@@ -1,0 +1,24 @@
+{% extends 'baseLogin.html.twig' %}
+
+{% block title %}Cambiar la contraseña{% endblock %}
+
+{% block body %}
+    <div class="row mb-5">
+		<h2 class="col-12 text-center">Cambiar la contraseña</h2>
+	</div>
+    <div class="row">
+    {{ form_start(resetForm, {'attr': {'class': 'col-12 col-md-8 offset-md-2'}}) }}
+        <div class="form-group">
+        {{ form_row(resetForm.plainPassword) }}
+        </div>
+        <div class="form-group text-center pt-4">
+        <button class="btn btn-lg btn-primary">Cambiar la contraseña</button>
+        </div>
+    {{ form_end(resetForm) }}
+    </div>
+    <div class="row mt-5">
+		<div class="col-12 links text-center">
+			<a href="{{ path('app_login')}} ">Salir</a>
+		</div>
+	</div>
+{% endblock %}

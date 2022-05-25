@@ -1,0 +1,23 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Añadir un producto
+{% endblock %}
+
+{% block contenido %}
+<div class="text-center">
+
+{% if id != null %}
+		<h4>Modificar producto</h4>
+{% else %}
+		<h4>Añadir un producto</h1>		
+{% endif %}
+</div>
+
+{{ form_start(form)}}
+
+{{ form_row(form.nombre)}}
+{{ form_end(form)}}
+
+
+
+{% endblock %}

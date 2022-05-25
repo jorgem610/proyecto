@@ -1,0 +1,14 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Crear una categoria
+{% endblock %}
+
+{% block contenido %}
+
+{% if id != null %}
+		<h1>Modificar categoría</h1>
+{% else %}
+		<h1>Crear categoría</h1>		
+{% endif %}
+{{ form(form) }}
+{% endblock %}

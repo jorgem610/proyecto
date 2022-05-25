@@ -1,0 +1,67 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Gestión de usuarios
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="table-responsive">
+		<h1>Gestión de usuarios</h1>
+		<a href="{{ path("admin_usuario_agregar")}}" class="btn shadow-1 rounded-1 blue">Agregar un usuario</a>
+		<table class="table">
+			<thead>
+				<tr>
+                    <th>Dni</th>
+					<th>Email</th>
+					<th>Rol</th>
+					<th>Contraseña</th>
+					<th>Activo</th>
+                    <th></th>
+				</tr>
+			</thead>
+			<tbody>
+			{# Recorro los usuarios #}
+				{% for usuario in usuarios %}
+					<tr>
+						<td>{{usuario.dni}}</td>
+						<td>{{usuario.email}}</td>
+						<td>{{usuario.roles[0]}}</td>
+						<td>{{usuario.password}}</td>
+					
+						<td>
+							<label class="form-switch mt-2">
+								<input type="checkbox" {{ (usuario.IsActivo ) ? 'checked': '' }} data-id="{{usuario.id}}"/>
+								<span class="form-slider"></span>
+							</label>
+						</td>
+						<td>
+							{# Le envio el id de la usuario al controlador de usuario #}
+							<a href="{{ path("admin_usuario_modificar", {id: usuario.id})}}" class="btn shadow-1 rounded-1 blue">Modificar</a>
+						
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		window.onload = () => { 
+			// Cojo el valor del boton
+			let activo = document.querySelectorAll("[type=checkbox]")
+
+			for (let boton of activo) {
+				boton.addEventListener("click", function () { // Me conecto mediante ajax
+				let xmlhttp = new XMLHttpRequest;
+				//Le envio vio a la ruta con el id del usuario para que en el controlador lo ponga activado o desactivado en la base datos
+				xmlhttp.open("get", `/admin/usuario/activo/${this.dataset.id}`)
+				xmlhttp.send()
+				})
+			}
+		}
+	</script>
+{% endblock %}

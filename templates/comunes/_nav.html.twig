@@ -1,0 +1,50 @@
+{# NAV #}
+
+<nav class="navbar nav-justified navbar-expand-md navbar-dark bg-primary">
+	<div class="container-fluid">
+		
+		<button class="navbar-toggler text-light col text-center" type="button" data-bs-toggle="collapse" data-bs-target="#miMenu">
+			Todas las categorias<span class="navbar-toggler-icon text-light"></span>
+		</button>
+		
+		
+
+
+		<div class="collapse navbar-collapse justify-content-between" id="miMenu">
+			<ul class="navbar-nav w-100 ">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle text-light" href="#" id="submenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Nuestro Productos
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="submenu">
+						{% if categorias is defined %}
+							{% for categoria in categorias %}
+								<li>
+									<a class="dropdown-item" href="{{ path('app_componentes', {id:categoria.id})}}">{{categoria.nombre}}</a>
+								</li>
+								<li>
+									<hr class="dropdown-divider">
+								{% endfor %}
+							{% endif %}
+
+						</ul>
+					</li>
+				</li>
+				<li class="nav-item">
+					<a href="{{ path('app_inicio')}}" class="nav-link text-light">Inicio</a>
+				</li>
+				<li class="nav-item">
+					<a href="{{path('app_ofertas', {especial:1})}}" class="nav-link text-light">Ofertas</a>
+				</li>
+				<li class="nav-item">
+					<a href="{{path('app_ofertas', {especial:2})}}" class="nav-link text-light">Outlet</a>
+				</li>
+				<li class="nav-item">
+					<a href="{{path('app_ofertas', {especial:3})}}" class="nav-link text-light">Gaming</a>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</nav>
+

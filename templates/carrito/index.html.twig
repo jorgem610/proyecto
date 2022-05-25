@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inicio
+{% endblock %}
+{% block carousel %}{% endblock %}
+{% block wrapper %}
+
+<div class="container-fluid">
+	<h1 class="text-center">Cesta de compra</h1>
+		{% if app.session.get('cestaConDatos') and app.session.get('total') is defined%}
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Producto</th>
+						<th scope="col">Precio</th>
+						<th scope="col">Cantidad</th>
+						<th scope="col">Total</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in app.session.get('cestaConDatos') %}
+						<tr>
+							<th scope="row">{{ item.producto.nombre}}</th>
+							<td>{{ item.producto.precio|format_currency('EUR', {rounding_mode: 'floor'})}}</td>
+							<td>{{ item.cantidad}}</td>
+							<td>{{ (item.producto.precio * item.cantidad)|format_currency('EUR', {rounding_mode: 'floor'})}}</td>
+							<td>
+								<a class="btn btn-success" href="{{ path("carrito_cesta_add", {'id': item.producto.id}) }}" role="button">
+									<i class="bi bi-cart-plus"></i>
+								</a>
+								<a href="{{path("carrito_eliminar", {id: item.producto.id})}}" class="btn btn-warning">
+									<i class="bi bi-cart-dash"></i>
+								</a>
+								{# 
+								<a href="{{path("eliminar", {id: item.producto.id})}}" class="btn btn-danger">
+									<i class="bi bi-cart-x"></i>
+								</a> #}
+							</td> 
+						</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<td colspan="3">Total:
+					</td>
+					<td>{{ app.session.get('total')|format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
+				<td>
+					{# <a class="btn btn-success" href="{{path('comprar')}}" role="button">Comprar</a> #}
+					<a class="btn btn-outline-dark" href="{{path('eliminar_todo')}}" role="button">Vaciar cesta</a>
+					<a class="btn btn-outline-dark" href="{{path('app_pasarela')}}" role="button">Pagar</a>
+				</td>
+			</tfoot>
+		</tr>
+</table>
+{% endif %}
+</div>
+{% endblock %}

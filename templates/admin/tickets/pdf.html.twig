@@ -1,0 +1,71 @@
+{% extends "basePdf.html.twig" %}
+
+{% block title %}factura
+{% endblock %}
+{% block body %}
+   {# <img src="https://app.bilwee.com/assets/template-header.png" style="width: 100%;"/>
+     <img src="https://app.bilwee.com/assets/gradient-background.JPG" style="width: 100%;"/> #}
+    <header></header>
+		<article>
+			<h1>Factura</h1>
+			<address >
+				<p>Pc<br>Informática</p>
+			</address>
+			<table class="meta">
+				<tr>
+					<th><span>N° Operación</span></th>
+					<td><span>{{productos[0].id}}</span></td>
+				</tr>
+				<tr>
+
+					<th><span>Fecha</span></th>
+					<td><span>{{productos[0].fecha|date('Y-m-d')}}</span></td>
+				</tr>
+				<tr>
+					<th><span>Empresa</span></th>
+					<td><span>Pc Informática</span></td>
+				</tr>
+        	<tr>
+					<th><span>Dirección</span></th>
+					<td><span> Calle tomas </span></td>
+				</tr>
+			</table>
+			<table class="inventory">
+				<thead>
+					<tr>
+					
+						<th><span>Nombre</span></th>
+                        <th><span>Cantidad</span></th>
+						<th><span>Precio</span></th>
+						<th><span>Importe</span></th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for producto in productos %}
+				
+					<tr>
+                        <td><a class="cut">-</a><span>{{producto.nombre}}</span></td>
+                        <td><a class="cut"></a><span>{{producto.cantidad}}</span></td>
+                        <td><span data-prefix>€</span><span>{{producto.precio}}</span></td>
+						<td><span data-prefix>€</span><span>{{producto.precio * producto.cantidad}}</span></td>				
+					</tr>
+					
+				{% endfor %}
+				
+                    <tr>
+						
+                        <td colspan="3"><span>Total</span></td>
+						<td><span data-prefix>€</span><span>{{total}}</span></td>
+											
+					</tr>
+				</tbody>
+			</table>			
+			
+		</article>
+    
+		<div id="legalcopy">
+      <hr>
+          <p class="legal"><strong>IVA</strong> incluido
+        </p>
+      </div>
+{% endblock %}

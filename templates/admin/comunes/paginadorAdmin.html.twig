@@ -1,0 +1,28 @@
+{% if maxPages is defined and maxPages > 1 %}
+
+    {% set arr = [] %} {# estoy inicializando la variable arr como un array vacio #}
+    {% if urlExtraParam is defined %}
+        {% set arr = urlExtraParam %} {# si tengo la variable urlExtraParam entonces inicializo arr con eses valores #}
+    {% endif %}
+    
+
+    <ul class="pagination">
+        {% set arr = arr|merge({pag: pag-1}) %}  {# añadimos el url param page a lo que ya tengamos #}
+        <li>
+             <a href="{{ path(path2list, arr) }}" class="{{ pag==1 ? "disable" : "" }} "> &lt; prev</a>
+        </li>
+
+       
+        {% for i in 1..maxPages %}
+            {% set arr = arr|merge({pag: i}) %}
+            <li>
+            <a href="{{ path(path2list, arr) }}" class="{{ pag == i ? "active":"" }}"> {{i}} </a>
+            </li>
+        {% endfor %}
+        {% set arr = arr|merge({pag: pag+1}) %}
+        <li>
+        <a href="{{ path(path2list, arr) }}" class="{{ pag == maxPages ? "disable" : "" }}"> next &gt;</a>
+        </li>
+    </ul>
+{% endif %}
+

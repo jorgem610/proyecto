@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Tickets;
+use App\Entity\Usuarios;
 use App\Repository\ProductosRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,9 +22,6 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         
-        if ($this->getUser()) {
-            return $this->redirectToRoute('app_inicio');
-        }
         // Si hay un error lo coge y lo guarda en esta variable
         $error = $authenticationUtils->getLastAuthenticationError();
         // ultimo usuario introducido por el usuario

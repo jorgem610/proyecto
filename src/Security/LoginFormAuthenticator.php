@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Security;
 
 use App\Entity\Tickets;
@@ -23,20 +24,24 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
-
+    
+    
     private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
+       
         $this->urlGenerator = $urlGenerator;
     }
-
+    
+   
+    
     public function authenticate(Request $request): Passport
     {
-        dd($request);
+        
         //Cojo el email por post
         $email = $request->request->get('email', '');
-
+      
         //lo meto en session
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
@@ -44,7 +49,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         return new Passport(
             //Nos permite adjuntar el email
             new UserBadge($email),
-            //Cogemos la claave
+            // Cogemos la claave
             new PasswordCredentials($request->request->get('password', '')),
             [
                 //Valida automaticamnete los tokens CSRF
@@ -58,9 +63,13 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         
-        
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
+        }
+
+        $target = $request->request->get("_target_path");
+        if($target!="") {
+            return new RedirectResponse($target);
         }
 
         //Si el usuario es rol admin lo mandamos al inicio de admin
@@ -68,7 +77,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($this->urlGenerator->generate('admin_producto_inicio'));
         }
 
-      
+       
         //Si el usuario es rol user lo mandamos al inicio de admin
         return new RedirectResponse($this->urlGenerator->generate('app_inicio'));
       
@@ -77,7 +86,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     
     protected function getLoginUrl(Request $request): string
     {
-        
+       
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
 }
+
+

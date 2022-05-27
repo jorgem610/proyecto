@@ -15,8 +15,11 @@
       	</div>
 		{# BOTONES #}
 		<div class="col-md-4 text-end">
-			<button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#miPerfil">{{ app.user.email }}</button>
+			<button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#miPerfil">{{ app.user.nombre }}</button>
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Cesta</button>
+			{% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-primary" href="{{ path('admin_producto_inicio') }}">Zona admin</a>
+        	{% endif %}
 			
 			{# Modal carrito#}
 			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

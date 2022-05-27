@@ -26,6 +26,7 @@ class InicioController extends AbstractController
      */
     public function index(Request $request, ProductosRepository $productosRepository, CategoriaRepository $categoriaRepository, $id = null): Response
     {
+        
         //Si el $id que pasa por get es que estoy intentando r entrar a las categoria
         if ($id != null) {
             $producto = $productosRepository->productosConCatStock($id, null);

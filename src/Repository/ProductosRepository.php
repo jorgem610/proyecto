@@ -30,15 +30,20 @@ class ProductosRepository extends ServiceEntityRepository
     // La funciond de busquedad
     public function search($palabras = null, $categoria = null)
     {
-        $query = $this->createQueryBuilder('a');
-        $query->where('a.activo = 1');
+        $query = $this->createQueryBuilder('p');
+        $query->where('p.activo = 1');
+        $query->andwhere('p.stock_minimo > 0');
         if ($palabras != null) {
-            $query->andWhere('MATCH_AGAINST(a.nombre, a.contenido) AGAINST (:palabras boolean)>0')
+            $query->andWhere('MATCH_AGAINST(p.nombre, p.contenido) AGAINST (:palabras boolean)>0')
                 ->setParameter('palabras', $palabras);
+            // $query->andWhere('p.nombre LIKE :palabras')
+            //     ->setParameter('palabras', '%'.$palabras.'%');
+            // $query->andWhere('p.contenido LIKE :palabras')
+            //     ->setParameter('palabras', '%'.$palabras.'%');
         }
 
         if ($categoria != null) {
-            $query->leftJoin('a.categoria', 'c');
+            $query->leftJoin('p.categoria', 'c');
             $query->andWhere('c.id =:id')
                 ->setParameter('id', $categoria);
         }

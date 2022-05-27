@@ -61,6 +61,7 @@
 	{{ parent() }}
 	<script src="https://www.paypal.com/sdk/js?client-id=AWOQPj4g6XE_6FXddowbYQe18qX_Nn7XnjZOZ1SHVhuoIvl77kzsHJVhKrqJPkxajSZmoM_rDKk8n26U&currency=EUR"></script>
 	<script>
+		
 		// Estilo del boton de paypal
         paypal.Buttons({
             style: {
@@ -81,8 +82,8 @@
             // Se aprobo el pago
             onApprove: function (data, actions) {
                 actions.order.capture().then(function (detalles) {
-				
-                    window.location.href ="/pasarela/completado";
+					
+                    window.location.href = `{{ path('app_pasarela_completado')}}` ;
                  });
             },
 // Funcion cuando el usuario cancele el pago

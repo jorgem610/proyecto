@@ -92,6 +92,7 @@ class UsuariosController extends AbstractController
     {
           //Iniciamos la variable total
         $total = 0;
+        $dni = "";
         //Si el $id que pasa por get es que estoy intentando editar
          if ($idTicket != null) {
              //cogemos el id del ticket y recogemos los productos
@@ -105,6 +106,7 @@ class UsuariosController extends AbstractController
              //Recorremos el array y le sumamos el total
              foreach ($resultado as $producto) {
                  $total += $producto['total'];
+                 $dni = $producto['dni'];
              }
          }
  
@@ -127,7 +129,7 @@ class UsuariosController extends AbstractController
          ]);
          $dompdf->setHttpContext($context);
          //Cogemos el html de la vista y le pasamos los productos y el total para pintarlo en el html
-         $html = $this->renderView('admin/tickets/pdf.html.twig', ['productos' => $resultado, 'total' => $total]);
+         $html = $this->renderView('admin/tickets/pdf.html.twig', ['productos' => $resultado, 'total' => $total, 'dni' => $dni]);
          //cargamos el contenido HTML
          $dompdf->loadHtml($html);
          //Definimos el tamaño y la orientacion que queremos

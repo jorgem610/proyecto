@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 
 use App\Repository\TicketsRepository;
+use App\Repository\UsuariosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,14 +40,17 @@ class AdminTicketsController extends AbstractController
      * @Route("/factura/{idTicket}", name="factura")
      *
      */
-    public function factura($idTicket = null, TicketsRepository $ticketsRepository)
+    public function factura($idTicket = null, TicketsRepository $ticketsRepository, UsuariosRepository $usuariosRepository)
     {
         //Iniciamos la variable total
         $total = 0;
+        $dni = "";
        //Si el $id que pasa por get es que estoy intentando editar
         if ($idTicket != null) {
             //cogemos el id del ticket y recogemos los productos
             $resultado = $ticketsRepository->ventas($idTicket);
+            
+           
            
             if(empty($resultado)){
                 $this->addFlash("red", "No existe el usuario que se quiere editar");
@@ -56,7 +60,9 @@ class AdminTicketsController extends AbstractController
             //Recorremos el array y le sumamos el total
             foreach ($resultado as $producto) {
                 $total += $producto['total'];
+                $dni = $producto['dni'];
             }
+          
         }
 
         //DOMPDF es una libreria que he instalado en mi proyecto
@@ -78,7 +84,7 @@ class AdminTicketsController extends AbstractController
         ]);
         $dompdf->setHttpContext($context);
         //Cogemos el html de la vista y le pasamos los productos y el total para pintarlo en el html
-        $html = $this->renderView('admin/tickets/pdf.html.twig', ['productos' => $resultado, 'total' => $total]);
+        $html = $this->renderView('admin/tickets/pdf.html.twig', ['productos' => $resultado, 'total' => $total, 'dni' => $dni]);
         //cargamos el contenido HTML
         $dompdf->loadHtml($html);
         //Definimos el tamaño y la orientacion que queremos

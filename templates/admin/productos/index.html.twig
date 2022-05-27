@@ -49,7 +49,7 @@
 		
 			</tbody>
 		</table>
-		<div class="text-center">
+		<div class="d-flex">
 			{% include 'admin/comunes/paginadorAdmin.html.twig' with {'path2list': 'admin_producto_inicio'} %}
 		</div>
 	
@@ -64,14 +64,15 @@
 			
 			// Cojo si es true o false el boton de activo
 			let activo = document.querySelectorAll("[type=checkbox]")
+		
 			//Le añado todos los botones el evento
 			for (let boton of activo) {
 				boton.addEventListener("click", function () { // Me conecto mediante ajax
+
 				let xmlhttp = new XMLHttpRequest;
 				// Le envio vio a la ruta con el id del producto para que en el controlador lo ponga activado o desactivado
-				xmlhttp.open("get", `/admin/producto/activo/${
-				this.dataset.id
-				}`)
+				xmlhttp.open("get", `/admin/producto/activo/${this.dataset.id}`)
+				
 				xmlhttp.send()
 				})
 			}
